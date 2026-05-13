@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const FRAME_COUNT = 5;
 const FPS = 12;
 const FRAME_INTERVAL_MS = Math.round(1000 / FPS);
-const FRAME_BASE_URL = "/img/splash/run_0000_";
+const FRAME_BASE_URL = `${import.meta.env.BASE_URL}img/splash/run_0000_`;
 
 function frameSrc(index) {
   return `${FRAME_BASE_URL}${String(index).padStart(2, "0")}.png`;

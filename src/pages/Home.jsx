@@ -9,9 +9,10 @@ const TAPE_IDLE_FRAME = 1;
 const TAPE_ANIMATION_START = 2;
 const TAPE_FRAME_INTERVAL_MS = 70;
 const MAIN_TRANSITION_DELAY_MS = 650;
+const BOX_IMAGE_URL = `${import.meta.env.BASE_URL}img/box/box.png`;
 
 function tapeSrc(frame) {
-  return `/img/box/tape/tapeArtboard-1_${frame}.png`;
+  return `${import.meta.env.BASE_URL}img/box/tape/tapeArtboard-1_${frame}.png`;
 }
 
 function Home() {
@@ -122,7 +123,7 @@ function Home() {
             </button>
             <img
               className={`hero-box__image${isBoxShaking ? " is-shaking" : ""}`}
-              src="/img/box/box.png"
+              src={BOX_IMAGE_URL}
               alt=""
               onClick={shakeBox}
               onAnimationEnd={() => setIsBoxShaking(false)}

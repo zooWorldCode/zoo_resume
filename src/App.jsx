@@ -5,7 +5,7 @@ import Main from "./pages/Main";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/home" element={<Home />} />
