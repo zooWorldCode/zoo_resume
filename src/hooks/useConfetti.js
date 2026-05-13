@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
 const CONFETTI_COUNT = 80;
-const SEQUIN_COUNT = 40;
+const SEQUIN_COUNT = 0;
 const COLORS = [
   { front: "#7b5cff", back: "#6245e0" },
   { front: "#b3c7ff", back: "#8fa5e5" },
@@ -115,11 +115,11 @@ export function useConfetti() {
       confettiRef.current.push({
         randomModifier: rnd(0, 99),
         color: COLORS[Math.floor(rnd(0, COLORS.length))],
-        dimensions: { x: rnd(48, 80), y: rnd(72, 120) },
+        dimensions: { x: rnd(240, 400), y: rnd(360, 600) },
         position: { x: rnd(originX - 20, originX + 20), y: rnd(originY, originY + 10) },
         rotation: rnd(0, 2 * Math.PI),
         scale: { x: 1, y: 1 },
-        velocity: initVelocity([-11.7, 11.7], [7.8, 14.3]),
+        velocity: initVelocity([-35.7, 35], [23, 43]),
       });
     }
 
