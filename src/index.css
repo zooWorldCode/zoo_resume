@@ -1,15 +1,15 @@
 :root {
   --black: #111111;
-  --white: #ffffff;
+  --white: #FAF7EF;
   --dp-pk: #f96997;
   --br-pk: #fed5e2;
   --dp-bg: #3db3a7;
   --br-bg: #d3f1ea;
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #fff;
+  --bg: #FAF7EF;
   --border: #e5e4e7;
-  --code-bg: #f4f3ec;
+  --code-bg: #FAF7EF;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
@@ -118,7 +118,7 @@ html:has(.splash-page) body {
 }
 
 .site-header__brand {
-  color: #fff;
+  color: #FAF7EF;
   font-family: var(--font-rounded-fixedsys);
   font-size: 28px;
   font-weight: 700;
