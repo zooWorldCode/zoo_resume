@@ -6,5 +6,12 @@ export default defineConfig({
   base: '/zoo_resume/',
   build: {
     outDir: 'docs',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name][extname]',
+      },
+    },
   },
 })
