@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 
-const CONFETTI_COUNT = 80;
+const CONFETTI_COUNT = 500;
 const SEQUIN_COUNT = 0;
 const COLORS = [
-  { front: "#7b5cff", back: "#6245e0" },
-  { front: "#b3c7ff", back: "#8fa5e5" },
-  { front: "#5c86ff", back: "#345dd1" },
+  { front: "#FED5E2", back: "#FED5E2" },
+  { front: "#D3F1EA", back: "#D3F1EA" },
 ];
 
 const rnd = (min, max) => Math.random() * (max - min) + min;
@@ -55,11 +54,11 @@ export function useConfetti() {
         ctx.translate(piece.position.x, piece.position.y);
         ctx.rotate(piece.rotation);
         piece.velocity.x -= piece.velocity.x * 0.075;
-        piece.velocity.y = Math.min(piece.velocity.y + 0.3, 3);
+        piece.velocity.y = Math.min(piece.velocity.y + 0.1, 2);
         piece.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
         piece.position.x += piece.velocity.x;
         piece.position.y += piece.velocity.y;
-        piece.scale.y = Math.cos((piece.position.y + piece.randomModifier) * 0.09);
+        piece.scale.y = Math.cos((piece.position.y + piece.randomModifier) * 0.03);
         ctx.fillStyle = piece.scale.y > 0 ? piece.color.front : piece.color.back;
         ctx.fillRect(-width / 2, -height / 2, width, height);
         ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -116,10 +115,10 @@ export function useConfetti() {
         randomModifier: rnd(0, 99),
         color: COLORS[Math.floor(rnd(0, COLORS.length))],
         dimensions: { x: rnd(240, 400), y: rnd(360, 600) },
-        position: { x: rnd(originX - 20, originX + 20), y: rnd(originY, originY + 10) },
+        position: { x: rnd(originX - 100, originX + 100), y: rnd(originY - 50, originY + 50) },
         rotation: rnd(0, 2 * Math.PI),
         scale: { x: 1, y: 1 },
-        velocity: initVelocity([-35.7, 35], [23, 43]),
+        velocity: initVelocity([-900, 900], [100, 20]),
       });
     }
 
