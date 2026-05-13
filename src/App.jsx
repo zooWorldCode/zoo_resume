@@ -1,18 +1,18 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import Splash from "./pages/Splash";
 import Home from "./pages/Home";
 import Main from "./pages/Main";
 
 function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/home" element={<Home />} />
         <Route path="/main" element={<Main />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 /* dd */
