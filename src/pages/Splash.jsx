@@ -31,7 +31,7 @@ function Splash() {
 
     const timeoutId = window.setTimeout(() => {
       navigate("/home");
-    }, 2000);
+    }, 2500);
 
     return () => {
       window.clearInterval(intervalId);
