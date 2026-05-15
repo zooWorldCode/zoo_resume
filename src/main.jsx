@@ -1,5 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { applyPublicAssetVars } from './applyPublicAssetVars.js'
+
+applyPublicAssetVars()
 import './index.css'
 import './fonts.css'
 import App from './App.jsx'
