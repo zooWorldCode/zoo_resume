@@ -17,6 +17,9 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
+  --bg-tile-image: url("/img/bg/bg.png");
+  --bg-tile-size: 20%;
+
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -80,6 +83,7 @@ summary {
   margin: 0;
   border-inline: none;
   background-color: #000;
+  background-image: none;
   min-height: 100dvh;
 }
 
@@ -97,6 +101,10 @@ html:has(.splash-page) body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background-image: var(--bg-tile-image);
+  background-repeat: repeat;
+  background-position: center;
+  background-size: var(--bg-tile-size);
 }
 
 .site-header {
@@ -104,7 +112,14 @@ html:has(.splash-page) body {
   height: 100px;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: var(--black);
+  border-radius: 0 0 60px 60px;
+  /* `background:` shorthand resets background-image; use layers so the tile stays visible. */
+  background-image:
+    linear-gradient(rgba(249, 105, 151, 1), rgba(249, 105, 151, 1)),
+    var(--bg-tile-image);
+  background-repeat: no-repeat, repeat;
+  background-position: center, center;
+  background-size: auto, var(--bg-tile-size);
 }
 
 .site-header__inner {
@@ -118,7 +133,7 @@ html:has(.splash-page) body {
 }
 
 .site-header__brand {
-  color: #FAF7EF;
+  color: var(--black);
   font-family: var(--font-rounded-fixedsys);
   font-size: 28px;
   font-weight: 700;
@@ -165,7 +180,7 @@ html:has(.splash-page) body {
 }
 
 .site-header__link {
-  color: #fff;
+  color: var(--black);
   font-family: var(--font-rounded-fixedsys);
   text-decoration: none;
   padding: 10px 14px;
@@ -194,11 +209,10 @@ html:has(.splash-page) body {
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
-  background-color: var(--white);
-  background-image: url("/img/bg/bg.png");
+  background-image: var(--bg-tile-image);
   background-repeat: repeat;
   background-position: center;
-  background-size: 7.2%;
+  background-size: var(--bg-tile-size);
 }
 
 .page-content {

@@ -13,7 +13,7 @@ function Header() {
     <header className="site-header">
       <div className="site-header__inner">
         <Link className="site-header__brand" to="/home">
-          주노의 세상
+          현주의 세상
         </Link>
         <nav aria-label="Primary" className="site-header__nav">
           {navItems.map((item) => (
