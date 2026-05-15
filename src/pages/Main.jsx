@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 
@@ -11,6 +11,36 @@ function titleImageSrc(num) {
 const BILL_IMAGE_URL = `${import.meta.env.BASE_URL}img/main/bill.png`;
 const ICON_BASE_URL = `${import.meta.env.BASE_URL}img/main/icon/`;
 const OPEN_KAKAO_URL = "https://open.kakao.com/o/s4Vnk1ui";
+const SEC01_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec01/`;
+
+function sec01Image(file) {
+  return `${SEC01_BASE_URL}${file}`;
+}
+
+const ABOUT_CARD_FRONT = sec01Image("B_f.png");
+const ABOUT_CARD_BACK = sec01Image("B_b.png");
+const FLIP_BTN_FRONT = sec01Image("flip_f.png");
+const FLIP_BTN_BACK = sec01Image("flip_b.png");
+
+/** About me — 오른쪽 2×2 작은 칸(pic_01~04), `href` 있으면 새 탭 링크 */
+const ABOUT_GRID_SMALL_CELLS = [
+  {
+    id: "cell-1",
+    src: sec01Image("pic_01.png"),
+    href: "https://place.map.kakao.com/12644123",
+  },
+  {
+    id: "cell-2",
+    src: sec01Image("pic_02.png"),
+    href: "https://www.youtube.com/watch?v=js1CtxSY38I",
+  },
+  {
+    id: "cell-3",
+    src: sec01Image("pic_03.png"),
+    href: "https://place.map.kakao.com/254335483",
+  },
+  { id: "cell-4", src: sec01Image("pic_04.png") },
+];
 /** 아이콘별 문구 — `href`가 있으면 새 탭으로 열리는 링크입니다. */
 const CONTACT_ROWS = [
   { file: "call.png", text: "010 - 6632 - 6480" },
@@ -24,6 +54,20 @@ function Main() {
   const sectionRefs = useRef([]);
   const activeSectionRef = useRef(0);
   const wheelLockRef = useRef(false);
+  const [aboutCardFlipped, setAboutCardFlipped] = useState(false);
+  const aboutCardFlipLockRef = useRef(false);
+
+  function toggleAboutCard() {
+    if (aboutCardFlipLockRef.current) {
+      return;
+    }
+
+    aboutCardFlipLockRef.current = true;
+    setAboutCardFlipped((flipped) => !flipped);
+    window.setTimeout(() => {
+      aboutCardFlipLockRef.current = false;
+    }, 650);
+  }
 
   useEffect(() => {
     const hash = location.hash.replace("#", "");
@@ -113,9 +157,68 @@ function Main() {
               ref={(element) => {
                 sectionRefs.current[index] = element;
               }}
-              className={`page-section${index === 4 ? " page-section--bill" : ""}`}
+              className={`page-section${index === 0 ? " page-section--about" : ""}${index === 4 ? " page-section--bill" : ""}`}
             >
-              {index < 4 ? (
+              {index === 0 ? (
+                <div className="main-section__inner">
+                  <img
+                    className="main-section__title-img"
+                    src={titleImageSrc(1)}
+                    alt=""
+                  />
+                  <div
+                    className="main-section__about-grid-box"
+                    aria-label="About me gallery"
+                  >
+                    <div className="main-section__about-grid">
+                      <div className="main-section__about-grid-cell main-section__about-grid-cell--featured">
+                        <div
+                          className={`main-section__profile-flip${aboutCardFlipped ? " is-flipped" : ""}`}
+                        >
+                          <div className="main-section__profile-flip-inner">
+                            <div className="main-section__profile-flip-face main-section__profile-flip-face--front">
+                              <img src={ABOUT_CARD_FRONT} alt="" />
+                            </div>
+                            <div className="main-section__profile-flip-face main-section__profile-flip-face--back">
+                              <img src={ABOUT_CARD_BACK} alt="" />
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="main-section__profile-flip-btn"
+                          aria-label={aboutCardFlipped ? "카드 앞면 보기" : "카드 뒷면 보기"}
+                          onClick={toggleAboutCard}
+                        >
+                          <img
+                            src={aboutCardFlipped ? FLIP_BTN_BACK : FLIP_BTN_FRONT}
+                            alt=""
+                          />
+                        </button>
+                      </div>
+                      {ABOUT_GRID_SMALL_CELLS.map((cell) => (
+                        <div
+                          key={cell.id}
+                          className={`main-section__about-grid-cell${cell.href ? " main-section__about-grid-cell--link" : ""}`}
+                        >
+                          {cell.href ? (
+                            <a
+                              className="main-section__about-grid-cell-link"
+                              href={cell.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <img src={cell.src} alt="" />
+                            </a>
+                          ) : (
+                            <img src={cell.src} alt="" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : index < 4 ? (
                 <img
                   className="main-section__title-img"
                   src={titleImageSrc(index + 1)}
