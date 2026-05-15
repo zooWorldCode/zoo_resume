@@ -1,38 +1,21 @@
 import { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header";
 
-const sections = [
-  {
-    id: "about-me",
-    eyebrow: "Section 01",
-    title: "About me",
-    description: "Introduce your vibe, story, and the world behind this resume.",
-  },
-  {
-    id: "skills",
-    eyebrow: "Section 02",
-    title: "Skills",
-    description: "Show the tools, strengths, and workflows you want to highlight.",
-  },
-  {
-    id: "project",
-    eyebrow: "Section 03",
-    title: "Project",
-    description: "Spotlight key projects with visuals, outcomes, and your role.",
-  },
-  {
-    id: "gallery",
-    eyebrow: "Section 04",
-    title: "Gallery",
-    description: "Use this area for screenshots, artwork, experiments, or mood cuts.",
-  },
-  {
-    id: "contact",
-    eyebrow: "Section 05",
-    title: "Contact",
-    description: "Finish with the best way to reach you or explore your work.",
-  },
+const SECTION_IDS = ["about-me", "skills", "project", "gallery", "contact"];
+
+function titleImageSrc(num) {
+  return `${import.meta.env.BASE_URL}img/main/title/title_${String(num).padStart(2, "0")}.png`;
+}
+
+const BILL_IMAGE_URL = `${import.meta.env.BASE_URL}img/main/bill.png`;
+const ICON_BASE_URL = `${import.meta.env.BASE_URL}img/main/icon/`;
+const OPEN_KAKAO_URL = "https://open.kakao.com/o/s4Vnk1ui";
+/** 아이콘별 문구 — `href`가 있으면 새 탭으로 열리는 링크입니다. */
+const CONTACT_ROWS = [
+  { file: "call.png", text: "010 - 6632 - 6480" },
+  { file: "kakao.png", text: OPEN_KAKAO_URL, href: OPEN_KAKAO_URL },
+  { file: "email.png", text: "hyunjuwork@outlook.com" },
 ];
 
 function Main() {
@@ -50,7 +33,7 @@ function Main() {
       return;
     }
 
-    const nextIndex = sections.findIndex((section) => section.id === hash);
+    const nextIndex = SECTION_IDS.indexOf(hash);
 
     if (nextIndex >= 0) {
       window.setTimeout(() => {
@@ -91,7 +74,7 @@ function Main() {
     event.preventDefault();
 
     const nextIndex = Math.min(
-      sections.length - 1,
+      SECTION_IDS.length - 1,
       Math.max(0, activeSectionRef.current + direction),
     );
 
@@ -123,27 +106,56 @@ function Main() {
           onWheel={handleWheel}
           onScroll={handleScroll}
         >
-          {sections.map((section, index) => (
+          {SECTION_IDS.map((id, index) => (
             <section
-              key={section.id}
-              id={section.id}
+              key={id}
+              id={id}
               ref={(element) => {
                 sectionRefs.current[index] = element;
               }}
-              className="page-section"
+              className={`page-section${index === 4 ? " page-section--bill" : ""}`}
             >
-              <div className="page-section__panel">
-                <p className="page-eyebrow">{section.eyebrow}</p>
-                <h1>{section.title}</h1>
-                <p className="page-copy">{section.description}</p>
-                {index === sections.length - 1 ? (
-                  <div className="page-actions">
-                    <Link className="page-button" to="/home">
-                      Back to Home
-                    </Link>
+              {index < 4 ? (
+                <img
+                  className="main-section__title-img"
+                  src={titleImageSrc(index + 1)}
+                  alt=""
+                />
+              ) : null}
+              {index === 4 ? (
+                <div className="main-section__bill-stack">
+                  <img
+                    className="main-section__bill-img"
+                    src={BILL_IMAGE_URL}
+                    alt=""
+                  />
+                  <div className="main-section__contact-rows">
+                    {CONTACT_ROWS.map((row) => (
+                      <div key={row.file} className="main-section__contact-row">
+                        <img
+                          className="main-section__contact-icon"
+                          src={`${ICON_BASE_URL}${row.file}`}
+                          alt=""
+                        />
+                        <p className="main-section__contact-text">
+                          {row.href ? (
+                            <a
+                              className="main-section__contact-link"
+                              href={row.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {row.text}
+                            </a>
+                          ) : (
+                            row.text
+                          )}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ) : null}
-              </div>
+                </div>
+              ) : null}
             </section>
           ))}
         </div>

@@ -1,3 +1,66 @@
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
 :root {
   --black: #111111;
   --white: #FEFEFC;
@@ -20,8 +83,8 @@
   --bg-tile-image: url("/img/bg/bg.png");
   --bg-tile-size: 20%;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: "Pretendard", system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: "Pretendard", system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
   --font-rounded-fixedsys: "RoundedFixedsys", ui-monospace, monospace;
 
@@ -293,25 +356,103 @@ html:has(.splash-page) body {
   min-height: calc(100dvh - 100px);
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  display: grid;
-  place-items: center;
-  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(16px, 3vh, 40px) 24px 32px;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.page-section__panel {
-  width: min(1080px, calc(100% - 8px));
-  min-height: min(72dvh, 760px);
+.main-section__title-img {
+  display: block;
+  width: min(138%, 1080px);
+  height: auto;
+  margin-top: 20px;
+  flex-shrink: 0;
+  object-fit: contain;
+  user-select: none;
+}
+
+.page-section--bill {
+  justify-content: center;
+}
+
+.main-section__bill-stack {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: min(92vw, 1100px);
+  margin-inline: auto;
+}
+
+.main-section__bill-stack .main-section__bill-img {
+  display: block;
+  width: auto;
+  max-width: min(92vw, 1100px);
+  height: auto;
+  max-height: min(72dvh, 720px);
+  object-fit: contain;
+  user-select: none;
+}
+
+.main-section__bill-stack .main-section__contact-rows {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(10px, 2vh, 20px);
+  width: 490px;
+  max-width: calc(100% - 16px);
+  height: 400px;
+  box-sizing: border-box;
+}
+
+.main-section__contact-row {
   display: grid;
-  place-items: center;
-  align-content: center;
-  padding: 48px;
-  border: 1px solid var(--border);
-  border-radius: 36px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow);
+  grid-template-columns: clamp(44px, 11vw, 56px) minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(12px, 3vw, 20px);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.main-section__contact-icon {
+  width: clamp(24px, 6vw, 44px);
+  height: clamp(24px, 6vw, 44px);
+  object-fit: contain;
+  justify-self: center;
+  align-self: center;
+}
+
+.main-section__contact-text {
+  margin: 0;
+  min-width: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+  font-family: var(--font-rounded-fixedsys);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-h);
+  text-shadow:
+    0 0 6px var(--white),
+    0 0 1px var(--white);
+}
+
+.main-section__contact-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.main-section__contact-link:hover {
+  color: var(--dp-pk);
 }
 
 .hero-box {
