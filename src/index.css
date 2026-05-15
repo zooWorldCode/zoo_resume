@@ -1,15 +1,15 @@
 :root {
   --black: #111111;
-  --white: #FAF7EF;
+  --white: #FEFEFC;
   --dp-pk: #f96997;
   --br-pk: #fed5e2;
   --dp-bg: #3db3a7;
   --br-bg: #d3f1ea;
   --text: #6b6375;
   --text-h: #08060d;
-  --bg: #FAF7EF;
+  --bg: #FEFEFC;
   --border: #e5e4e7;
-  --code-bg: #FAF7EF;
+  --code-bg: #FEFEFC;
   --accent: #aa3bff;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
@@ -82,14 +82,54 @@ summary {
   max-width: none;
   margin: 0;
   border-inline: none;
-  background-color: #000;
+  background-color: var(--br-pk);
   background-image: none;
   min-height: 100dvh;
 }
 
 html:has(.splash-page),
 html:has(.splash-page) body {
-  background-color: #000;
+  background-color: var(--br-pk);
+}
+
+.splash-page {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--br-pk);
+}
+
+.splash-page__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 36px);
+}
+
+.splash-page__runner {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(72vw, 520px);
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+}
+
+.splash-page__hello {
+  display: block;
+  width: min(56vw, 900px);
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
 }
 
 #root {
@@ -223,6 +263,12 @@ html:has(.splash-page) body {
   z-index: 1;
 }
 
+.home-page-shell .page-content {
+  align-self: start;
+  justify-self: center;
+  padding-top: clamp(8px, 2.5vh, 36px);
+}
+
 .main-page-shell .page-content {
   width: 100%;
   height: calc(100dvh - 100px);
@@ -271,9 +317,91 @@ html:has(.splash-page) body {
 .hero-box {
   position: relative;
   width: min(1080px, 100%);
-  aspect-ratio: 1080 / 600;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-box__column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: clamp(12px, 2.5vw, 28px);
+}
+
+.home-chat-intro-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+}
+
+.hero-box__chat-stack--intro-focus,
+.hero-box__chat-stack--followup-focus {
+  position: relative;
+  z-index: 100;
+}
+
+.hero-box__chat-stack {
+  position: relative;
+  width: min(520px, 100%);
+  flex-shrink: 0;
+}
+
+.hero-box__chat-stack .hero-box__chat {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-box__chat-stack .hero-box__chat--a {
+  position: relative;
+  z-index: 0;
+  opacity: 1;
+}
+
+.hero-box__chat-stack .hero-box__chat--b {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-box__chat-stack .hero-box__chat--c {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-box__chat-stack.is-chat-crossfade .hero-box__chat--a {
+  opacity: 0;
+}
+
+.hero-box__chat-stack.is-chat-crossfade .hero-box__chat--b {
+  opacity: 1;
+}
+
+.hero-box__chat-stack.is-chat03-phase .hero-box__chat--b {
+  opacity: 0;
+}
+
+.hero-box__chat-stack.is-chat03-phase .hero-box__chat--c {
+  opacity: 1;
+}
+
+.hero-box__box-row {
+  position: relative;
+  width: 100%;
 }
 
 .hero-box__tape-button {
@@ -311,21 +439,27 @@ html:has(.splash-page) body {
   opacity: 0;
 }
 
-.hero-box__image {
+.hero-box__stack {
   position: relative;
   z-index: 1;
   width: 100%;
-  height: auto;
   max-width: 100%;
   max-height: 100%;
-  display: block;
-  cursor: url("/img/cursor/click.png") 8 20, pointer;
   transition:
     transform 0.3s ease,
     filter 0.3s ease;
 }
 
-.hero-box__image.is-shaking {
+.hero-box__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: url("/img/cursor/click.png") 8 20, pointer;
+}
+
+.hero-box__stack.is-shaking {
   animation: box-shake 0.45s ease-in-out;
   transform-origin: center center;
 }
