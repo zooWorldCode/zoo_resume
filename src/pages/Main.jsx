@@ -12,10 +12,140 @@ const BILL_IMAGE_URL = `${import.meta.env.BASE_URL}img/main/bill.png`;
 const ICON_BASE_URL = `${import.meta.env.BASE_URL}img/main/icon/`;
 const OPEN_KAKAO_URL = "https://open.kakao.com/o/s4Vnk1ui";
 const SEC01_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec01/`;
+const SEC02_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec02/`;
+const SEC03_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec03/`;
 
 function sec01Image(file) {
   return `${SEC01_BASE_URL}${file}`;
 }
+
+function sec02Image(file) {
+  return `${SEC02_BASE_URL}${file}`;
+}
+
+function sec03Image(file) {
+  return `${SEC03_BASE_URL}${file}`;
+}
+
+function sec03IndexImage(file) {
+  return `${SEC03_BASE_URL}index/${file}`;
+}
+
+function projectTechStack(keyNums) {
+  return keyNums.map((num) => {
+    const keyId = String(num).padStart(2, "0");
+    return {
+      id: `key-${keyId}`,
+      label: "",
+      src: sec02Image(`key_${keyId}.png`),
+    };
+  });
+}
+
+const SKILLS_WINDOW_SRC = sec02Image("window.png");
+
+const PROJECT_BG_SRC = sec03Image("bg.png");
+const PROJECT_PAPER_SRC = sec03Image("paper.png");
+const PROJECT_LEFT_SRC = sec03Image("left.png");
+const PROJECT_BG_WIDTH = 4352;
+const PROJECT_BG_HEIGHT = 2672;
+const PROJECT_PAPER_WIDTH = 4284;
+const PROJECT_PAPER_HEIGHT = 2644;
+const PROJECT_LEFT_WIDTH = 1704;
+const PROJECT_LEFT_HEIGHT = 2435;
+
+const PROJECT_SHEET_LOREM =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+const PROJECT_PILL_COUNT = 10;
+
+const PROJECT_META_ROWS = [
+  { key: "type", label: "구분" },
+  { key: "role", label: "역할" },
+  { key: "period", label: "기간" },
+  { key: "duty", label: "담당" },
+];
+
+const PROJECT_PAGES = [
+  {
+    id: "P-index-01",
+    title: "한자하루",
+    meta: {
+      role: "기획 · 디자인 · 개발",
+      period: "3주",
+      type: "개인 프로젝트",
+      duty: "모든 것",
+    },
+    description: PROJECT_SHEET_LOREM,
+    techStack: Array.from({ length: 9 }, (_, index) => ({
+      id: `p1-tech-${index + 1}`,
+      label: "",
+    })),
+  },
+  {
+    id: "P-index-02",
+    title: "뮤트 (Mute)",
+    meta: {
+      role: "디자인",
+      period: "3주",
+      type: "팀 프로젝트",
+      duty: "디자인 90%, 개발 30%",
+    },
+    description:
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    techStack: projectTechStack([1, 2, 3, 6, 9, 12, 15]),
+  },
+  {
+    id: "P-index-03",
+    title: "물결",
+    meta: {
+      role: "기획 · 디자인 · 개발",
+      period: "3주",
+      type: "개인 프로젝트",
+      duty: "모든 것",
+    },
+    description:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+    techStack: projectTechStack([1, 2, 3, 7, 10, 11, 15, 16]),
+  },
+  {
+    id: "P-index-04",
+    title: "성심당",
+    meta: {
+      role: "디자인 · 개발",
+      period: "3주",
+      type: "개인 프로젝트",
+      duty: "모든 것",
+    },
+    description:
+      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+    techStack: projectTechStack([1, 2, 3]),
+  },
+];
+
+const PROJECT_INDEX_TABS = Array.from({ length: 4 }, (_, index) => {
+  const num = String(index + 1).padStart(2, "0");
+  return {
+    id: `P-index-${num}`,
+    src: sec03IndexImage(`P_index_${num}.png`),
+    srcActive: sec03Image(`1/P_index_b_${num}.png`),
+    srcInactive: sec03Image(`1/P_index_w_${num}.png`),
+  };
+});
+
+function getProjectPage(activeId) {
+  return (
+    PROJECT_PAGES.find((page) => page.id === activeId) ?? PROJECT_PAGES[0]
+  );
+}
+
+const SKILLS_KEY_CELLS = Array.from({ length: 16 }, (_, index) => {
+  const num = String(index + 1).padStart(2, "0");
+  return {
+    id: `key-${num}`,
+    src: sec02Image(`key_${num}.png`),
+  };
+});
 
 const ABOUT_CARD_FRONT = sec01Image("B_f.png");
 const ABOUT_CARD_BACK = sec01Image("B_b.png");
@@ -56,6 +186,14 @@ function Main() {
   const wheelLockRef = useRef(false);
   const [aboutCardFlipped, setAboutCardFlipped] = useState(false);
   const aboutCardFlipLockRef = useRef(false);
+  const [activeProjectIndexId, setActiveProjectIndexId] = useState(
+    PROJECT_PAGES[0].id,
+  );
+  const activeProjectPage = getProjectPage(activeProjectIndexId);
+
+  function handleProjectIndexClick(tabId) {
+    setActiveProjectIndexId(tabId);
+  }
 
   function toggleAboutCard() {
     if (aboutCardFlipLockRef.current) {
@@ -157,7 +295,7 @@ function Main() {
               ref={(element) => {
                 sectionRefs.current[index] = element;
               }}
-              className={`page-section${index === 0 ? " page-section--about" : ""}${index === 4 ? " page-section--bill" : ""}`}
+              className={`page-section${index === 0 ? " page-section--about" : ""}${index === 1 ? " page-section--skills" : ""}${index === 2 ? " page-section--project" : ""}${index === 4 ? " page-section--bill" : ""}`}
             >
               {index === 0 ? (
                 <div className="main-section__inner">
@@ -218,10 +356,171 @@ function Main() {
                     </div>
                   </div>
                 </div>
-              ) : index < 4 ? (
+              ) : index === 1 ? (
+                <div className="main-section__inner">
+                  <img
+                    className="main-section__title-img"
+                    src={titleImageSrc(2)}
+                    alt=""
+                  />
+                  <div
+                    className="main-section__skills-grid-box"
+                    aria-label="Skills gallery"
+                  >
+                    <div className="main-section__skills-grid">
+                      <div className="main-section__skills-grid-cell main-section__skills-grid-cell--window">
+                        <img
+                          src={SKILLS_WINDOW_SRC}
+                          alt=""
+                          width={1080}
+                          height={400}
+                        />
+                      </div>
+                      <div className="main-section__skills-keys-box">
+                        <div className="main-section__skills-keys">
+                        {SKILLS_KEY_CELLS.map((cell) => (
+                          <button
+                            key={cell.id}
+                            type="button"
+                            className="main-section__skills-key"
+                            aria-label={`Skill key ${cell.id.replace("key-", "")}`}
+                          >
+                            <div className="main-section__skills-key-media">
+                              <img src={cell.src} alt="" />
+                            </div>
+                          </button>
+                        ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : index === 2 ? (
+                <div className="main-section__inner">
+                  <img
+                    className="main-section__title-img"
+                    src={titleImageSrc(3)}
+                    alt=""
+                  />
+                  <div
+                    className="main-section__project-stage"
+                    aria-label="Project gallery"
+                  >
+                    <img
+                      className="main-section__project-bg"
+                      src={PROJECT_BG_SRC}
+                      alt=""
+                      width={PROJECT_BG_WIDTH}
+                      height={PROJECT_BG_HEIGHT}
+                    />
+                    <div
+                      className="main-section__project-indexes"
+                      aria-label="Project index tabs"
+                    >
+                      {PROJECT_INDEX_TABS.map((tab) => (
+                        <button
+                          key={tab.id}
+                          type="button"
+                          className={`main-section__project-index${activeProjectIndexId === tab.id ? " is-active" : ""}`}
+                          aria-label={`Project index ${tab.id.replace("P-index-", "")}`}
+                          aria-pressed={activeProjectIndexId === tab.id}
+                          onClick={() => handleProjectIndexClick(tab.id)}
+                        >
+                          <img src={tab.src} alt="" />
+                        </button>
+                      ))}
+                    </div>
+                    <div className="main-section__project-paper-wrap">
+                      <div className="main-section__project-paper-frame">
+                          <img
+                            className="main-section__project-paper-img"
+                            src={PROJECT_PAPER_SRC}
+                            alt=""
+                            width={PROJECT_PAPER_WIDTH}
+                            height={PROJECT_PAPER_HEIGHT}
+                          />
+                          <div className="main-section__project-paper-content">
+                            <div className="main-section__project-paper-half main-section__project-paper-half--left">
+                              <img
+                                src={PROJECT_LEFT_SRC}
+                                alt=""
+                                width={PROJECT_LEFT_WIDTH}
+                                height={PROJECT_LEFT_HEIGHT}
+                              />
+                            </div>
+                            <div className="main-section__project-paper-half main-section__project-paper-half--right">
+                              <article
+                                key={activeProjectPage.id}
+                                className="project-sheet"
+                              >
+                                <div className="project-sheet__body">
+                                  <h3 className="project-sheet__title">
+                                    {activeProjectPage.title}
+                                  </h3>
+                                  <div className="project-sheet__top">
+                                    <table className="project-sheet__meta-table">
+                                      <tbody>
+                                        {PROJECT_META_ROWS.map((row) => (
+                                          <tr key={row.key}>
+                                            <th scope="row">{row.label}</th>
+                                            <td>
+                                              {activeProjectPage.meta[row.key]}
+                                            </td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                    <div className="project-sheet__tech">
+                                      <p className="project-sheet__tech-title">
+                                        사용한 기술
+                                      </p>
+                                      <ul
+                                        className="project-sheet__tech-grid"
+                                        aria-label="사용한 기술"
+                                      >
+                                        {activeProjectPage.techStack.map((tech) => (
+                                          <li key={tech.id}>
+                                            {tech.src ? (
+                                              <img
+                                                src={tech.src}
+                                                alt={tech.label}
+                                              />
+                                            ) : (
+                                              <span aria-hidden="true" />
+                                            )}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  </div>
+                                  <p className="project-sheet__desc">
+                                    {activeProjectPage.description}
+                                  </p>
+                                  <ul
+                                    className="project-sheet__pills"
+                                    aria-hidden="true"
+                                  >
+                                    {Array.from(
+                                      { length: PROJECT_PILL_COUNT },
+                                      (_, pillIndex) => (
+                                        <li key={`pill-${pillIndex}`}>
+                                          <span />
+                                        </li>
+                                      ),
+                                    )}
+                                  </ul>
+                                </div>
+                              </article>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              ) : index === 3 ? (
                 <img
                   className="main-section__title-img"
-                  src={titleImageSrc(index + 1)}
+                  src={titleImageSrc(4)}
                   alt=""
                 />
               ) : null}

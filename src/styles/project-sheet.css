@@ -1,0 +1,188 @@
+/* Project right page — fixed layout per Figma mockup (380×620) */
+
+.main-section__project-paper-half--right {
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  pointer-events: auto;
+  overflow: visible;
+}
+
+.project-sheet {
+  --sheet-w: 361px;
+  --sheet-h: 589px;
+  --sheet-black: #111111;
+  --sheet-white: #fefefc;
+  --sheet-tech: #4a90a2;
+  --sheet-pill: #2ecc71;
+  --sheet-shadow: rgb(17 17 17 / 0.5);
+
+  position: relative;
+  width: 80%;
+  height: 90%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  color: var(--sheet-black);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.project-sheet__body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.project-sheet__title {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin: 0 0 18px;
+  padding: 10px 30px;
+  background: var(--sheet-white);
+  border: none;
+  border-radius: 14px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.15;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+.project-sheet__top {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.project-sheet__meta-table {
+  flex: 0 0 auto;
+  width: 250px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 16px;
+  font-weight: 700;
+  background-color: #fefefc;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(90, 90, 90, 0.2);
+  overflow: hidden;
+}
+
+.project-sheet__meta-table th,
+.project-sheet__meta-table td {
+  border-bottom: 1px solid #cecece;
+  padding: 10px 10px;
+  vertical-align: middle;
+  text-align: left;
+  font-weight: 700;
+}
+
+.project-sheet__meta-table th {
+  width: 58px;
+  background-color: #e0e0e0;
+  text-align: center;
+}
+
+.project-sheet__tech {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 170px;
+  height: 170px;
+  box-sizing: border-box;
+  padding: 8px;
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(90, 90, 90, 0.2);
+}
+
+.project-sheet__tech-title {
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.project-sheet__tech-grid {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 35px);
+  grid-auto-rows: 35px;
+  gap: 5px;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.project-sheet__tech-grid li {
+  width: 35px;
+  height: 35px;
+}
+
+.project-sheet__tech-grid li span {
+  display: block;
+  width: 35px;
+  height: 35px;
+  background: var(--sheet-tech);
+}
+
+.project-sheet__tech-grid li img {
+  display: block;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.project-sheet__desc {
+  flex: 0 0 auto;
+  margin: 20px 0 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.project-sheet__pills {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 54px);
+  grid-template-rows: repeat(2, 22px);
+  align-content: end;
+  justify-content: space-between;
+  gap: 25px 0;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+.project-sheet__pills li span {
+  display: block;
+  width: 80px;
+  height: 35px;
+  border-radius: 999px;
+  background: #2ecc71;
+  box-shadow: 2px 2px 4px rgba(90, 90, 90, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-sheet {
+    animation: none;
+  }
+}

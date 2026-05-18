@@ -4,6 +4,7 @@ import { applyPublicAssetVars } from './applyPublicAssetVars.js'
 
 applyPublicAssetVars()
 import './index.css'
+import './styles/project-sheet.css'
 import './fonts.css'
 import App from './App.jsx'
 
