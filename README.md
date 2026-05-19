@@ -18,7 +18,7 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 ## 작업 순서
-npx create-vite@latest my-resume --template react
+npx create-vite@latest my-resume --template reactt
 
 yarn add react-router-dom
 
