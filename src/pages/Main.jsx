@@ -42,11 +42,33 @@ function projectTechStack(keyNums) {
   });
 }
 
+function renderProjectDescription(description) {
+  if (!Array.isArray(description)) {
+    return description;
+  }
+
+  return description.map((part, index) => {
+    if (typeof part === "string") {
+      return part;
+    }
+
+    return (
+      <span
+        key={`desc-part-${index}`}
+        className={part.strong ? "project-sheet__desc-strong" : undefined}
+      >
+        {part.text}
+      </span>
+    );
+  });
+}
+
 const SKILLS_WINDOW_SRC = sec02Image("window.png");
 
 const PROJECT_BG_SRC = sec03Image("bg.png");
 const PROJECT_PAPER_SRC = sec03Image("paper.png");
 const PROJECT_LEFT_SRC = sec03Image("left.png");
+const PROJECT_PASTE_SRC = sec03Image("paste.png");
 const PROJECT_BG_WIDTH = 4352;
 const PROJECT_BG_HEIGHT = 2672;
 const PROJECT_PAPER_WIDTH = 4284;
@@ -89,11 +111,62 @@ const PROJECT_PAGES = [
       role: "디자인",
       period: "3주",
       type: "팀 프로젝트",
-      duty: "디자인 90%, 개발 30%",
+      duty: (<>
+        디자인 90%
+        <br />
+        개발 30%
+      </>
+    ),
     },
-    description:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    techStack: projectTechStack([1, 2, 3, 6, 9, 12, 15]),
+    description: [
+      "팀원들과 ",
+      { text: "협업", strong: true },
+      "하여 만든 ",
+      { text: "반응형 ", strong: true },
+      "음악 스트리밍 앱 프로젝트. 혼자 작업했을때보다 더 즐거웠고 ",
+      { text: "효율", strong: true },
+      "이 좋았다. 개인적으로 부족했던 코딩 스킬을 팀원에게 ",
+      { text: "도움", strong: true },
+      " 받았다. 더불어 팀원들에게 부족했던 디자인과 아이디어를 내가 채워주면서 아주 만족스러운 결과물이 탄생하였다. ",
+      { text: "프론트", strong: true },
+      "는 vue, ",
+      { text: "백엔드", strong: true },
+      "는 php로 작업하였다. github을 사용하여 서로의 작업을 즉시 ",
+      { text: "피드백", strong: true },
+      " & 수집 하였다. MySQLi를 활용하여 ",
+      { text: "데이터베이스", strong: true },
+      "를 관리하였다. 영상정보, 댓글, 사용자 정보를 한눈에 확인할 수 있어 매우 ",
+      { text: "편리", strong: true },
+      "했다.",
+    ],
+    techStack: projectTechStack([1, 2, 3, 6, 9, 12, 15, 16]),
+    leftImage: "mute.png",
+    linkWindow: {
+      width: 500,
+    },
+    testAccount: {
+      email: "test@test.com",
+      password: "test1234",
+    },
+    links: [
+      { id: "mute-login",    label: "로그인",                   href: "https://thewebtest.dothome.co.kr/" },
+      { id: "mute-signup",   label: "회원가입",                 href: "https://thewebtest.dothome.co.kr/signup" },
+      { id: "mute-loading",  label: "로딩",                 href: "https://thewebtest.dothome.co.kr/welcome" },
+      { id: "mute-artist",   label: "아티스트 선택",        href: "https://thewebtest.dothome.co.kr/artist-select" },
+      { id: "mute-info",     label: "사용자 정보",        href: "https://thewebtest.dothome.co.kr/signup-info" },
+      { id: "mute-main",     label: "메인",                    href: "https://thewebtest.dothome.co.kr/main" },
+      { id: "mute-player",   label: "플레이어",                  href: "https://thewebtest.dothome.co.kr/main/player/0" },
+      { id: "mute-recent",   label: "최근 재생 곡",         href: "https://thewebtest.dothome.co.kr/main/playlist" },
+      { id: "mute-library",  label: "보관함",                 href: "https://thewebtest.dothome.co.kr/main/library" },
+      { id: "mute-chart",    label: "차트",                   href: "https://thewebtest.dothome.co.kr/main/chart" },
+      { id: "mute-ainfo",    label: "아티스트 정보",             href: "https://thewebtest.dothome.co.kr/main/artist-info" },
+      { id: "mute-video",    label: "비디오",                   href: "https://thewebtest.dothome.co.kr/main/video-detail/1" },
+      { id: "mute-mypage",   label: "마이 페이지",                 href: "https://thewebtest.dothome.co.kr/main/mypage" },
+      { id: "mute-ticket",   label: "이용권 관리", href: "https://thewebtest.dothome.co.kr/main/ticket" },
+      { id: "mute-ai",       label: "AI 질문",             href: "https://thewebtest.dothome.co.kr/main/ai" },
+      { id: "mute-search",   label: "검색",                  href: "https://thewebtest.dothome.co.kr/main/search" },
+      { id: "mute-result",   label: "검색 결과",           href: "https://thewebtest.dothome.co.kr/main/search-result?term=%EC%95%84%EC%9D%B4%EC%9C%A0" },
+    ],
   },
   {
     id: "P-index-03",
@@ -104,9 +177,46 @@ const PROJECT_PAGES = [
       type: "개인 프로젝트",
       duty: "모든 것",
     },
-    description:
-      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
-    techStack: projectTechStack([1, 2, 3, 7, 10, 11, 15, 16]),
+    description: [
+      "코딩에 어느정도 손에 익은 뒤 ",
+      { text: "AI", strong: true },
+      " (cursor)를 활용하여 만든",
+      { text: "반응형", strong: true },
+      " 쇼핑몰 웹사이트. 덕분에 혼자서도 ",
+      { text: "짧은 시간", strong: true },
+      "안에 많은 기능을 구현할수 있었다. key 컬러로 연한 주황빛 ",
+      { text: "테라코타", strong: true },
+      " 색을 선택했다. 도자기의 부드럽고 ",
+      { text: "곡선", strong: true },
+      "적인 형태를 웹사이트에서 느낄수 있게 하였다. ",
+      { text: "프론트", strong: true },
+      "는 react, ",
+      { text: "백엔드", strong: true },
+      "는 express로 작업하였고 mongodb를 활용해 상품정보와 사용자 정보를 관리하였다. 회원가입한 정보가 mongodb에 저장되는 것을 확인하면서 ",
+      { text: "데이터베이스", strong: true },
+      " 관리에 대한 ",
+      { text: "흥미", strong: true },
+      "가 생겼다.",
+    ],
+    techStack: projectTechStack([1, 2, 3, 7, 10, 11, 15]),
+    testAccount: {
+      email: "test@test.com",
+      password: "123456",
+    },
+    links: [
+      { id: "mul-main",    label: "메인",           href: "https://mulgyeol-lac.vercel.app/" },
+      { id: "mul-cat",     label: "카테고리",       href: "https://mulgyeol-lac.vercel.app/category?category=plate&sort=all&page=1" },
+      { id: "mul-product", label: "상품 상세", href: "https://mulgyeol-lac.vercel.app/product/69eacd28ebd87ecfbc5bf946" },
+      { id: "mul-event",   label: "이벤트",          href: "https://mulgyeol-lac.vercel.app/event" },
+      { id: "mul-comm",    label: "커뮤니티",      href: "https://mulgyeol-lac.vercel.app/community" },
+      { id: "mul-blog",    label: "블로그",           href: "https://mulgyeol-lac.vercel.app/community/post-1" },
+      { id: "mul-login",   label: "로그인",          href: "https://mulgyeol-lac.vercel.app/login" },
+      { id: "mul-signup",  label: "회원가입",        href: "https://mulgyeol-lac.vercel.app/signup?redirect=%2F" },
+      { id: "mul-mypage",  label: "마이 페이지",        href: "https://mulgyeol-lac.vercel.app/mypage" },
+      { id: "mul-wish",    label: "위시리스트",       href: "https://mulgyeol-lac.vercel.app/wishlist" },
+      { id: "mul-cart",    label: "장바구니",           href: "https://mulgyeol-lac.vercel.app/cart" },
+    ],
+    leftImage: "mul.png",
   },
   {
     id: "P-index-04",
@@ -118,8 +228,13 @@ const PROJECT_PAGES = [
       duty: "모든 것",
     },
     description:
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+      "태어나서 처음 만들어 본 웹사이트. 평소 좋아하던 빵집인 성심당 웹사이트를 리뉴얼 하였다. 코딩을 배운 지 한 달만에 만들었기 때문에 미숙한 부분이 많다. 해당 프로젝트를 진행하면서 프론트엔드 코드에 더 빠져들게 되었다. 덕분에 다음 프로젝트에 더 열정을 가질 수 있었다.",
     techStack: projectTechStack([1, 2, 3]),
+    links: [
+      { id: "link-main", label: "메인", href: "https://zooworldcode.github.io/sungsimdang/" },
+      { id: "link-report", label: "불편 접수", href: "https://zooworldcode.github.io/sungsimdang/AS_page.html" },
+    ],
+    leftImage: "sungsim.png",
   },
 ];
 
@@ -190,9 +305,49 @@ function Main() {
     PROJECT_PAGES[0].id,
   );
   const activeProjectPage = getProjectPage(activeProjectIndexId);
+  const [descExpanded, setDescExpanded] = useState(false);
+  const [descOverflows, setDescOverflows] = useState(false);
+  const [testAccountOpen, setTestAccountOpen] = useState(false);
+  const descRef = useRef(null);
+  const testAccountTimerRef = useRef(null);
 
   function handleProjectIndexClick(tabId) {
     setActiveProjectIndexId(tabId);
+  }
+
+  async function copyProjectAccountValue(value) {
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch {
+      // Clipboard permissions can be blocked on non-secure previews.
+    }
+  }
+
+  function toggleTestAccount() {
+    setTestAccountOpen((open) => !open);
+  }
+
+  function openProjectLink(link, event) {
+    if (!activeProjectPage.linkWindow) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const width = activeProjectPage.linkWindow.width;
+    const height = window.screen.availHeight || window.innerHeight;
+    const left = Math.max(0, Math.round((window.screen.availWidth - width) / 2));
+    const features = [
+      `width=${width}`,
+      `height=${height}`,
+      `left=${left}`,
+      "top=0",
+      "resizable=yes",
+      "scrollbars=yes",
+      "noopener",
+    ].join(",");
+
+    window.open(link.href, link.id, features);
   }
 
   function toggleAboutCard() {
@@ -206,6 +361,39 @@ function Main() {
       aboutCardFlipLockRef.current = false;
     }, 650);
   }
+
+  useEffect(() => {
+    setDescExpanded(false);
+    setDescOverflows(false);
+    setTestAccountOpen(false);
+    const timer = setTimeout(() => {
+      const el = descRef.current;
+      if (el) {
+        setDescOverflows(el.scrollHeight > el.clientHeight + 1);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [activeProjectIndexId]);
+
+  useEffect(() => {
+    if (testAccountTimerRef.current) {
+      clearTimeout(testAccountTimerRef.current);
+      testAccountTimerRef.current = null;
+    }
+
+    if (testAccountOpen) {
+      testAccountTimerRef.current = setTimeout(() => {
+        setTestAccountOpen(false);
+      }, 10000);
+    }
+
+    return () => {
+      if (testAccountTimerRef.current) {
+        clearTimeout(testAccountTimerRef.current);
+        testAccountTimerRef.current = null;
+      }
+    };
+  }, [testAccountOpen, activeProjectIndexId]);
 
   useEffect(() => {
     const hash = location.hash.replace("#", "");
@@ -439,21 +627,43 @@ function Main() {
                             width={PROJECT_PAPER_WIDTH}
                             height={PROJECT_PAPER_HEIGHT}
                           />
-                          <div className="main-section__project-paper-content">
+                          <div className="main-section__project-paper-grid">
                             <div className="main-section__project-paper-half main-section__project-paper-half--left">
-                              <img
-                                src={PROJECT_LEFT_SRC}
-                                alt=""
-                                width={PROJECT_LEFT_WIDTH}
-                                height={PROJECT_LEFT_HEIGHT}
-                              />
+                              {activeProjectPage.leftImage && activeProjectPage.links?.[0]?.href ? (
+                                <a
+                                  href={activeProjectPage.links[0].href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <img
+                                    src={sec03Image(activeProjectPage.leftImage)}
+                                    alt=""
+                                    width={PROJECT_LEFT_WIDTH}
+                                    height={PROJECT_LEFT_HEIGHT}
+                                  />
+                                </a>
+                              ) : activeProjectPage.leftImage ? (
+                                <img
+                                  src={sec03Image(activeProjectPage.leftImage)}
+                                  alt=""
+                                  width={PROJECT_LEFT_WIDTH}
+                                  height={PROJECT_LEFT_HEIGHT}
+                                />
+                              ) : (
+                                <img
+                                  src={PROJECT_LEFT_SRC}
+                                  alt=""
+                                  width={PROJECT_LEFT_WIDTH}
+                                  height={PROJECT_LEFT_HEIGHT}
+                                />
+                              )}
                             </div>
                             <div className="main-section__project-paper-half main-section__project-paper-half--right">
                               <article
                                 key={activeProjectPage.id}
                                 className="project-sheet"
                               >
-                                <div className="project-sheet__body">
+                                <div className={`project-sheet__body${descExpanded ? " desc-is-expanded" : ""}`}>
                                   <h3 className="project-sheet__title">
                                     {activeProjectPage.title}
                                   </h3>
@@ -493,22 +703,101 @@ function Main() {
                                       </ul>
                                     </div>
                                   </div>
-                                  <p className="project-sheet__desc">
-                                    {activeProjectPage.description}
-                                  </p>
-                                  <ul
-                                    className="project-sheet__pills"
-                                    aria-hidden="true"
+                                  <div className="project-sheet__desc-box">
+                                  <p
+                                    ref={descRef}
+                                    className={`project-sheet__desc${descExpanded ? " is-expanded" : ""}`}
                                   >
-                                    {Array.from(
-                                      { length: PROJECT_PILL_COUNT },
-                                      (_, pillIndex) => (
-                                        <li key={`pill-${pillIndex}`}>
-                                          <span />
+                                    {renderProjectDescription(activeProjectPage.description)}
+                                  </p>
+                                  {(descOverflows || descExpanded) && (
+                                    <button
+                                      type="button"
+                                      className="project-sheet__desc-toggle"
+                                      onClick={() => setDescExpanded((v) => !v)}
+                                    >
+                                      {descExpanded ? "접기" : "더보기"}
+                                    </button>
+                                  )}
+                                  </div>
+                                  {activeProjectPage.links ? (
+                                    <ul className="project-sheet__links">
+                                      {activeProjectPage.links.map((link) => (
+                                        <li key={link.id}>
+                                          <a
+                                            className="project-sheet__link-btn"
+                                            href={link.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(event) => openProjectLink(link, event)}
+                                          >
+                                            {link.label}
+                                          </a>
                                         </li>
-                                      ),
-                                    )}
-                                  </ul>
+                                      ))}
+                                      {activeProjectPage.testAccount && (
+                                        <li className="project-sheet__account">
+                                          <button
+                                            type="button"
+                                            className="project-sheet__link-btn project-sheet__link-btn--account"
+                                            aria-expanded={testAccountOpen}
+                                            onClick={toggleTestAccount}
+                                          >
+                                            테스트 계정
+                                          </button>
+                                          {testAccountOpen && (
+                                            <div className="project-sheet__account-panel">
+                                              <strong>테스트 계정</strong>
+                                              <div className="project-sheet__account-row">
+                                                <span>이메일: {activeProjectPage.testAccount.email}</span>
+                                                <button
+                                                  type="button"
+                                                  className="project-sheet__copy-btn"
+                                                  aria-label="테스트 계정 이메일 복사"
+                                                  onClick={() => copyProjectAccountValue(activeProjectPage.testAccount.email)}
+                                                >
+                                                  <img
+                                                    className="project-sheet__copy-icon"
+                                                    src={PROJECT_PASTE_SRC}
+                                                    alt=""
+                                                  />
+                                                </button>
+                                              </div>
+                                              <div className="project-sheet__account-row">
+                                                <span>비번: {activeProjectPage.testAccount.password}</span>
+                                                <button
+                                                  type="button"
+                                                  className="project-sheet__copy-btn"
+                                                  aria-label="테스트 계정 비밀번호 복사"
+                                                  onClick={() => copyProjectAccountValue(activeProjectPage.testAccount.password)}
+                                                >
+                                                  <img
+                                                    className="project-sheet__copy-icon"
+                                                    src={PROJECT_PASTE_SRC}
+                                                    alt=""
+                                                  />
+                                                </button>
+                                              </div>
+                                            </div>
+                                          )}
+                                        </li>
+                                      )}
+                                    </ul>
+                                  ) : (
+                                    <ul
+                                      className="project-sheet__pills"
+                                      aria-hidden="true"
+                                    >
+                                      {Array.from(
+                                        { length: PROJECT_PILL_COUNT },
+                                        (_, pillIndex) => (
+                                          <li key={`pill-${pillIndex}`}>
+                                            <span />
+                                          </li>
+                                        ),
+                                      )}
+                                    </ul>
+                                  )}
                                 </div>
                               </article>
                             </div>
