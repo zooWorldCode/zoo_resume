@@ -716,6 +716,7 @@ html:has(.splash-page) body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -733,6 +734,102 @@ html:has(.splash-page) body {
   object-fit: contain;
   object-position: top center;
   pointer-events: none;
+}
+
+.main-section__skills-key.is-revealed .main-section__skills-key-media {
+  align-items: flex-start;
+}
+
+.main-section__skills-key-water-wrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 93%;
+  height: 93%;
+  pointer-events: none;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: top center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1px, 0.25vw, 3px);
+}
+
+@keyframes key-water-rise {
+  from { height: 0; }
+  to { height: var(--water-target, 50%); }
+}
+
+@keyframes key-wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(20%); }
+}
+
+.main-section__skills-key-water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--dp-pk);
+  animation: key-water-rise 1.2s cubic-bezier(0.2, 0, 0.1, 1) forwards;
+  pointer-events: none;
+}
+
+.main-section__skills-key-water::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -50%;
+  width: 200%;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--br-pk);
+  animation: key-wave 2.4s ease-in-out infinite alternate;
+}
+
+.main-section__skills-key-water-wrap.is-closing .main-section__skills-key-water {
+  animation: key-water-drain 0.45s ease-in forwards;
+}
+
+.main-section__skills-key-water-wrap.is-closing .main-section__skills-key-name,
+.main-section__skills-key-water-wrap.is-closing .main-section__skills-key-pct {
+  animation: key-label-fade-out 0.45s ease-in forwards;
+}
+
+@keyframes key-water-drain {
+  from { height: var(--water-target, 50%); }
+  to { height: 0; }
+}
+
+@keyframes key-label-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.main-section__skills-key-name,
+.main-section__skills-key-pct {
+  position: relative;
+  z-index: 1;
+  color: var(--white);
+  font-family: var(--sans);
+  font-size: clamp(9px, 1.15cqi, 14px);
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  word-break: keep-all;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+}
+
+.main-section__skills-key-pct {
+  opacity: 0.9;
+  font-size: 0.82em;
 }
 
 @media (hover: hover) {
@@ -761,6 +858,25 @@ html:has(.splash-page) body {
     transition: none;
   }
 
+  .main-section__skills-key-water {
+    animation: none;
+    height: var(--water-target, 50%);
+  }
+
+  .main-section__skills-key-water::before {
+    animation: none;
+  }
+
+  .main-section__skills-key-water-wrap.is-closing .main-section__skills-key-water {
+    animation: none;
+    height: 0;
+  }
+
+  .main-section__skills-key-water-wrap.is-closing .main-section__skills-key-name,
+  .main-section__skills-key-water-wrap.is-closing .main-section__skills-key-pct {
+    animation: none;
+    opacity: 0;
+  }
 }
 
 .main-section__project-stage {

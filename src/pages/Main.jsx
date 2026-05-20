@@ -110,7 +110,7 @@ const PROJECT_PAGES = [
     meta: {
       role: "디자인",
       period: "3주",
-      type: "팀 프로젝트",
+      type: "팀 프로젝트 (3명)",
       duty: (<>
         디자인 90%
         <br />
@@ -228,7 +228,7 @@ const PROJECT_PAGES = [
       duty: "모든 것",
     },
     description:
-      "태어나서 처음 만들어 본 웹사이트. 평소 좋아하던 빵집인 성심당 웹사이트를 리뉴얼 하였다. 코딩을 배운 지 한 달만에 만들었기 때문에 미숙한 부분이 많다. 해당 프로젝트를 진행하면서 프론트엔드 코드에 더 빠져들게 되었다. 덕분에 다음 프로젝트에 더 열정을 가질 수 있었다.",
+      "코딩 배우기 처음 만들어 본 웹사이트. 평소 좋아하던 빵집인 성심당 웹사이트를 리뉴얼 하였다. 코딩을 배운 지 한 달만에 만들었기 때문에 미숙한 부분이 많다. 해당 프로젝트를 진행하면서 프론트엔드 코드에 더 빠져들게 되었다. 덕분에 다음 프로젝트에 더 열정을 가질 수 있었다.",
     techStack: projectTechStack([1, 2, 3]),
     links: [
       { id: "link-main", label: "메인", href: "https://zooworldcode.github.io/sungsimdang/" },
@@ -254,11 +254,35 @@ function getProjectPage(activeId) {
   );
 }
 
+const SKILLS_KEY_TEXTS = [
+  "CSS 95%",
+  "HTML 95%",
+  "JavaScript 95%",
+  "jQuery 90%",
+  "Node.js 85%",
+  "VUE 85%",
+  "React 90%",
+  "Next.js 80%",
+  "PHP 85%",
+  "MongoDB 95%",
+  "Vercel 95%",
+  "Github 95%",
+  "Photoshop 100%",
+  "Illustrator 100%",
+  "Figma 95%",
+  "MySQL 90%",
+];
+
 const SKILLS_KEY_CELLS = Array.from({ length: 16 }, (_, index) => {
   const num = String(index + 1).padStart(2, "0");
+  const text = SKILLS_KEY_TEXTS[index];
+  const lastSpace = text.lastIndexOf(" ");
   return {
     id: `key-${num}`,
     src: sec02Image(`key_${num}.png`),
+    text,
+    skillName: lastSpace >= 0 ? text.slice(0, lastSpace) : text,
+    pct: lastSpace >= 0 ? (parseInt(text.slice(lastSpace + 1), 10) || 0) : 0,
   };
 });
 
@@ -305,6 +329,10 @@ function Main() {
     PROJECT_PAGES[0].id,
   );
   const activeProjectPage = getProjectPage(activeProjectIndexId);
+  const [revealedSkillKeyIds, setRevealedSkillKeyIds] = useState(() => new Set());
+  const [closingSkillKeyIds, setClosingSkillKeyIds] = useState(() => new Set());
+  const skillKeyTimersRef = useRef({});
+  const skillKeyExitTimersRef = useRef({});
   const [descExpanded, setDescExpanded] = useState(false);
   const [descOverflows, setDescOverflows] = useState(false);
   const [testAccountOpen, setTestAccountOpen] = useState(false);
@@ -313,6 +341,43 @@ function Main() {
 
   function handleProjectIndexClick(tabId) {
     setActiveProjectIndexId(tabId);
+  }
+
+  function startCloseSkillKey(keyId) {
+    setClosingSkillKeyIds((ids) => {
+      const next = new Set(ids);
+      next.add(keyId);
+      return next;
+    });
+    clearTimeout(skillKeyExitTimersRef.current[keyId]);
+    skillKeyExitTimersRef.current[keyId] = setTimeout(() => {
+      setRevealedSkillKeyIds((ids) => {
+        const next = new Set(ids);
+        next.delete(keyId);
+        return next;
+      });
+      setClosingSkillKeyIds((ids) => {
+        const next = new Set(ids);
+        next.delete(keyId);
+        return next;
+      });
+      delete skillKeyExitTimersRef.current[keyId];
+    }, 500);
+  }
+
+  function toggleSkillKey(keyId) {
+    if (revealedSkillKeyIds.has(keyId)) {
+      clearTimeout(skillKeyTimersRef.current[keyId]);
+      delete skillKeyTimersRef.current[keyId];
+      startCloseSkillKey(keyId);
+    } else if (!closingSkillKeyIds.has(keyId)) {
+      setRevealedSkillKeyIds((ids) => new Set([...ids, keyId]));
+      clearTimeout(skillKeyTimersRef.current[keyId]);
+      skillKeyTimersRef.current[keyId] = setTimeout(() => {
+        startCloseSkillKey(keyId);
+        delete skillKeyTimersRef.current[keyId];
+      }, 3000);
+    }
   }
 
   async function copyProjectAccountValue(value) {
@@ -361,6 +426,15 @@ function Main() {
       aboutCardFlipLockRef.current = false;
     }, 650);
   }
+
+  useEffect(() => {
+    const autoTimers = skillKeyTimersRef.current;
+    const exitTimers = skillKeyExitTimersRef.current;
+    return () => {
+      Object.values(autoTimers).forEach(clearTimeout);
+      Object.values(exitTimers).forEach(clearTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     setDescExpanded(false);
@@ -566,18 +640,39 @@ function Main() {
                       </div>
                       <div className="main-section__skills-keys-box">
                         <div className="main-section__skills-keys">
-                        {SKILLS_KEY_CELLS.map((cell) => (
+                        {SKILLS_KEY_CELLS.map((cell) => {
+                          const isRevealed = revealedSkillKeyIds.has(cell.id);
+                          const isClosing = closingSkillKeyIds.has(cell.id);
+
+                          return (
                           <button
                             key={cell.id}
                             type="button"
-                            className="main-section__skills-key"
+                            className={`main-section__skills-key${isRevealed ? " is-revealed" : ""}`}
                             aria-label={`Skill key ${cell.id.replace("key-", "")}`}
+                            aria-pressed={isRevealed}
+                            onClick={() => toggleSkillKey(cell.id)}
                           >
                             <div className="main-section__skills-key-media">
                               <img src={cell.src} alt="" />
+                              {isRevealed && (
+                                <span
+                                  className={`main-section__skills-key-water-wrap${isClosing ? " is-closing" : ""}`}
+                                  style={{
+                                    '--water-target': `${cell.pct}%`,
+                                    WebkitMaskImage: `url(${cell.src})`,
+                                    maskImage: `url(${cell.src})`,
+                                  }}
+                                >
+                                  <span className="main-section__skills-key-water" aria-hidden="true" />
+                                  <span className="main-section__skills-key-name">{cell.skillName}</span>
+                                  <span className="main-section__skills-key-pct">{cell.pct}%</span>
+                                </span>
+                              )}
                             </div>
                           </button>
-                        ))}
+                          );
+                        })}
                         </div>
                       </div>
                     </div>
