@@ -14,6 +14,7 @@ const OPEN_KAKAO_URL = "https://open.kakao.com/o/s4Vnk1ui";
 const SEC01_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec01/`;
 const SEC02_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec02/`;
 const SEC03_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec03/`;
+const SEC04_BASE_URL = `${import.meta.env.BASE_URL}img/main/sec04/`;
 
 function sec01Image(file) {
   return `${SEC01_BASE_URL}${file}`;
@@ -29,6 +30,10 @@ function sec03Image(file) {
 
 function sec03IndexImage(file) {
   return `${SEC03_BASE_URL}index/${file}`;
+}
+
+function sec04Image(file) {
+  return `${SEC04_BASE_URL}${file}`;
 }
 
 function projectTechStack(keyNums) {
@@ -122,7 +127,6 @@ const PROJECT_PAGES = [
       "팀원들과 ",
       { text: "협업", strong: true },
       "하여 만든 ",
-      { text: "반응형 ", strong: true },
       "음악 스트리밍 앱 프로젝트. 혼자 작업했을때보다 더 즐거웠고 ",
       { text: "효율", strong: true },
       "이 좋았다. 개인적으로 부족했던 코딩 스킬을 팀원에게 ",
@@ -143,6 +147,11 @@ const PROJECT_PAGES = [
     leftImage: "mute.png",
     linkWindow: {
       width: 500,
+    },
+    planLink: {
+      id: "mute-plan",
+      label: "기획안",
+      href: "https://www.figma.com/deck/WIubBLJCoGbb01wvjxLkUl",
     },
     testAccount: {
       email: "test@test.com",
@@ -217,6 +226,28 @@ const PROJECT_PAGES = [
       { id: "mul-cart",    label: "장바구니",           href: "https://mulgyeol-lac.vercel.app/cart" },
     ],
     leftImage: "mul.png",
+    leftHotspots: [
+      {
+        id: "mul-pc-preview",
+        label: "물결 PC 미리보기",
+        href: "https://mulgyeol-lac.vercel.app/",
+        rect: { left: 0, top: 0, width: 100, height: 48 },
+      },
+      {
+        id: "mul-tablet-preview",
+        label: "물결 태블릿 미리보기",
+        href: "https://mulgyeol-lac.vercel.app/",
+        popupWidth: 940,
+        rect: { left: 0, top: 50, width: 55, height: 50 },
+      },
+      {
+        id: "mul-mobile-preview",
+        label: "물결 모바일 미리보기",
+        href: "https://mulgyeol-lac.vercel.app/",
+        popupWidth: 390,
+        rect: { left: 58, top: 50, width: 42, height: 50 },
+      },
+    ],
   },
   {
     id: "P-index-04",
@@ -227,8 +258,21 @@ const PROJECT_PAGES = [
       type: "개인 프로젝트",
       duty: "모든 것",
     },
-    description:
-      "코딩 배우기 처음 만들어 본 웹사이트. 평소 좋아하던 빵집인 성심당 웹사이트를 리뉴얼 하였다. 코딩을 배운 지 한 달만에 만들었기 때문에 미숙한 부분이 많다. 해당 프로젝트를 진행하면서 프론트엔드 코드에 더 빠져들게 되었다. 덕분에 다음 프로젝트에 더 열정을 가질 수 있었다.",
+    description: [
+      "코딩 배우기 ",
+      { text: "처음", strong: true },
+      " 만들어 본 웹사이트. 평소 좋아하던 빵집인 ",
+      { text: "성심당", strong: true },
+      " 웹사이트를 리뉴얼 하였다. 코딩을 배운 지 ",
+      { text: "한 달", strong: true },
+      "만에 만들었기 때문에 ",
+      { text: "미숙", strong: true },
+      "한 부분이 많다. 해당 프로젝트를 진행하면서 프론트엔드 코드에 더 ",
+      { text: "빠져들게", strong: true },
+      " 되었다. 덕분에 다음 프로젝트에 더 ",
+      { text: "열정", strong: true },
+      "을 가질 수 있었다.",
+    ],
     techStack: projectTechStack([1, 2, 3]),
     links: [
       { id: "link-main", label: "메인", href: "https://zooworldcode.github.io/sungsimdang/" },
@@ -286,6 +330,34 @@ const SKILLS_KEY_CELLS = Array.from({ length: 16 }, (_, index) => {
   };
 });
 
+const PROFILE_ITEMS = [
+  { id: "pro-1", label: "이름", value: "노현주" },
+  { id: "pro-2", label: "생년월일", value: "2000.07.06" },
+  { id: "pro-3", label: "희망 직군", value: "웹디자이너, 웹퍼블리셔" },
+];
+
+const LICENSE_ITEMS = [
+  { id: "lic-1", date: "2019.11", name: "CAD 실무능력평가 2급" },
+  { id: "lic-2", date: "2021.03", name: "GTQ 포토샵 1급" },
+  { id: "lic-3", date: "2021.03", name: "GTQ 일러스트 1급" },
+  { id: "lic-4", date: "2023.11", name: "바리스타 자격증 2급" },
+  { id: "lic-5", date: "2025.09", name: "컬러리스트 산업기사" },
+];
+
+const EDUCATION_ITEMS = [
+  { id: "edu-1", date: "2021.02", name: "인하공업전문대학교\n 산업디자인과 (졸업)" },
+  { id: "edu-2", date: "2026.06", name: "생성형 AI 활용 UX·UI 디자인 & 프론트엔드 개발과정 (ChatGPT, 일러, 포토, 피그마, 자바스크립트, 리액트)-3차(1014시간)(수료)", small: true },
+];
+
+const GALLERY_ITEMS = Array.from({ length: 10 }, (_, i) => {
+  const num = String(i + 1).padStart(2, "0");
+  return {
+    id: `gallery-${num}`,
+    src: sec04Image(`pic_${num}.jpg`),
+    desc: `작품 ${i + 1}`,
+  };
+});
+
 const ABOUT_CARD_FRONT = sec01Image("B_f.png");
 const ABOUT_CARD_BACK = sec01Image("B_b.png");
 const FLIP_BTN_FRONT = sec01Image("flip_f.png");
@@ -338,9 +410,18 @@ function Main() {
   const [testAccountOpen, setTestAccountOpen] = useState(false);
   const descRef = useRef(null);
   const testAccountTimerRef = useRef(null);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   function handleProjectIndexClick(tabId) {
     setActiveProjectIndexId(tabId);
+  }
+
+  function prevGallery() {
+    setGalleryIndex((i) => (i - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length);
+  }
+
+  function nextGallery() {
+    setGalleryIndex((i) => (i + 1) % GALLERY_ITEMS.length);
   }
 
   function startCloseSkillKey(keyId) {
@@ -393,13 +474,15 @@ function Main() {
   }
 
   function openProjectLink(link, event) {
-    if (!activeProjectPage.linkWindow) {
+    const popupWidth = link.popupWidth ?? activeProjectPage.linkWindow?.width;
+
+    if (!popupWidth) {
       return;
     }
 
     event.preventDefault();
 
-    const width = activeProjectPage.linkWindow.width;
+    const width = popupWidth;
     const height = window.screen.availHeight || window.innerHeight;
     const left = Math.max(0, Math.round((window.screen.availWidth - width) / 2));
     const features = [
@@ -557,7 +640,7 @@ function Main() {
               ref={(element) => {
                 sectionRefs.current[index] = element;
               }}
-              className={`page-section${index === 0 ? " page-section--about" : ""}${index === 1 ? " page-section--skills" : ""}${index === 2 ? " page-section--project" : ""}${index === 4 ? " page-section--bill" : ""}`}
+              className={`page-section${index === 0 ? " page-section--about" : ""}${index === 1 ? " page-section--skills" : ""}${index === 2 ? " page-section--project" : ""}${index === 3 ? " page-section--gallery" : ""}${index === 4 ? " page-section--bill" : ""}`}
             >
               {index === 0 ? (
                 <div className="main-section__inner">
@@ -637,6 +720,41 @@ function Main() {
                           width={1080}
                           height={400}
                         />
+                        <div className="skills-memos" aria-label="자격증 및 학력">
+                          <div className="skills-memo skills-memo--profile">
+                            <div className="skills-memo__header">Profile</div>
+                            <ul className="skills-memo__list">
+                              {PROFILE_ITEMS.map((item) => (
+                                <li key={item.id} className="skills-memo__item">
+                                  <span className="skills-memo__date">{item.label}</span>
+                                  <span className="skills-memo__name">{item.value}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="skills-memo skills-memo--education">
+                            <div className="skills-memo__header">Education</div>
+                            <ul className="skills-memo__list">
+                              {EDUCATION_ITEMS.map((item) => (
+                                <li key={item.id} className="skills-memo__item">
+                                  <span className="skills-memo__date">{item.date}</span>
+                                  <span className="skills-memo__name">{item.name}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="skills-memo skills-memo--license">
+                            <div className="skills-memo__header">License</div>
+                            <ul className="skills-memo__list">
+                              {LICENSE_ITEMS.map((item) => (
+                                <li key={item.id} className="skills-memo__item">
+                                  <span className="skills-memo__date">{item.date}</span>
+                                  <span className={`skills-memo__name${item.small ? " skills-memo__name--small" : ""}`}>{item.name}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                       <div className="main-section__skills-keys-box">
                         <div className="main-section__skills-keys">
@@ -724,11 +842,38 @@ function Main() {
                           />
                           <div className="main-section__project-paper-grid">
                             <div className="main-section__project-paper-half main-section__project-paper-half--left">
-                              {activeProjectPage.leftImage && activeProjectPage.links?.[0]?.href ? (
+                              {activeProjectPage.leftImage && activeProjectPage.leftHotspots ? (
+                                <div className="main-section__project-left-preview">
+                                  <img
+                                    src={sec03Image(activeProjectPage.leftImage)}
+                                    alt=""
+                                    width={PROJECT_LEFT_WIDTH}
+                                    height={PROJECT_LEFT_HEIGHT}
+                                  />
+                                  {activeProjectPage.leftHotspots.map((hotspot) => (
+                                    <a
+                                      key={hotspot.id}
+                                      className="main-section__project-left-hotspot"
+                                      href={hotspot.href}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      aria-label={hotspot.label}
+                                      style={{
+                                        "--hotspot-left": `${hotspot.rect.left}%`,
+                                        "--hotspot-top": `${hotspot.rect.top}%`,
+                                        "--hotspot-width": `${hotspot.rect.width}%`,
+                                        "--hotspot-height": `${hotspot.rect.height}%`,
+                                      }}
+                                      onClick={(event) => openProjectLink(hotspot, event)}
+                                    />
+                                  ))}
+                                </div>
+                              ) : activeProjectPage.leftImage && activeProjectPage.links?.[0]?.href ? (
                                 <a
                                   href={activeProjectPage.links[0].href}
                                   target="_blank"
                                   rel="noopener noreferrer"
+                                  onClick={(event) => openProjectLink(activeProjectPage.links[0], event)}
                                 >
                                   <img
                                     src={sec03Image(activeProjectPage.leftImage)}
@@ -830,6 +975,18 @@ function Main() {
                                           </a>
                                         </li>
                                       ))}
+                                      {activeProjectPage.planLink && (
+                                        <li>
+                                          <a
+                                            className="project-sheet__link-btn project-sheet__link-btn--plan"
+                                            href={activeProjectPage.planLink.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            {activeProjectPage.planLink.label}
+                                          </a>
+                                        </li>
+                                      )}
                                       {activeProjectPage.testAccount && (
                                         <li className="project-sheet__account">
                                           <button
@@ -902,11 +1059,59 @@ function Main() {
                     </div>
                   </div>
               ) : index === 3 ? (
-                <img
-                  className="main-section__title-img"
-                  src={titleImageSrc(4)}
-                  alt=""
-                />
+                <div className="main-section__inner">
+                  <img
+                    className="main-section__title-img"
+                    src={titleImageSrc(4)}
+                    alt=""
+                  />
+                  <div className="gallery-carousel" aria-label="개인 작품 갤러리">
+                    <div className="gallery-carousel__stage">
+                      <button
+                        type="button"
+                        className="gallery-carousel__arrow"
+                        aria-label="이전 작품"
+                        onClick={prevGallery}
+                      >
+                        ‹
+                      </button>
+                      <div className="gallery-carousel__viewport">
+                        <div
+                          className="gallery-carousel__track"
+                          style={{ transform: `translateX(-${galleryIndex * 100}%)` }}
+                        >
+                          {GALLERY_ITEMS.map((item) => (
+                            <div key={item.id} className="gallery-carousel__slide">
+                              <div className="gallery-carousel__photo">
+                                <img src={item.src} alt="" />
+                              </div>
+                              <p className="gallery-carousel__desc">{item.desc}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="gallery-carousel__arrow"
+                        aria-label="다음 작품"
+                        onClick={nextGallery}
+                      >
+                        ›
+                      </button>
+                    </div>
+                    <div className="gallery-carousel__dots">
+                      {GALLERY_ITEMS.map((item, i) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          className={`gallery-carousel__dot${i === galleryIndex ? " is-active" : ""}`}
+                          aria-label={`작품 ${i + 1}`}
+                          onClick={() => setGalleryIndex(i)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               ) : null}
               {index === 4 ? (
                 <div className="main-section__bill-stack">

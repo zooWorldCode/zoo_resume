@@ -271,6 +271,16 @@
   filter: brightness(1.18);
 }
 
+.project-sheet__link-btn--plan {
+  background: var(--black);
+  color: var(--white);
+}
+
+.project-sheet__link-btn--plan:hover {
+  background: var(--black);
+  filter: brightness(1.18);
+}
+
 .project-sheet__account {
   position: relative;
   flex: 0 0 auto;
