@@ -11,7 +11,7 @@ const navItems = [
 
 const MENU_MQ = "(min-width: 1031px)";
 
-function Header() {
+function Header({ activeSectionIndex = -1 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const menuId = useId();
@@ -84,10 +84,10 @@ function Header() {
           </span>
         </button>
         <nav id={menuId} aria-label="Primary" className="site-header__nav">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <Link
               key={item.href}
-              className="site-header__link"
+              className={`site-header__link${activeSectionIndex === index ? " is-active" : ""}`}
               to={item.href}
               onClick={() => setMenuOpen(false)}
             >

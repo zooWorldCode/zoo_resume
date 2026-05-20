@@ -358,6 +358,7 @@ const GALLERY_ITEMS = Array.from({ length: 10 }, (_, i) => {
   };
 });
 
+const ABOUT_BG_SRC = sec01Image("bg.png");
 const ABOUT_CARD_FRONT = sec01Image("B_f.png");
 const ABOUT_CARD_BACK = sec01Image("B_b.png");
 const FLIP_BTN_FRONT = sec01Image("flip_f.png");
@@ -395,6 +396,7 @@ function Main() {
   const sectionRefs = useRef([]);
   const activeSectionRef = useRef(0);
   const wheelLockRef = useRef(false);
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [aboutCardFlipped, setAboutCardFlipped] = useState(false);
   const aboutCardFlipLockRef = useRef(false);
   const [activeProjectIndexId, setActiveProjectIndexId] = useState(
@@ -578,6 +580,7 @@ function Main() {
     }
 
     activeSectionRef.current = nextIndex;
+    setActiveSectionIndex(nextIndex);
     wheelLockRef.current = true;
     nextSection.scrollIntoView({ behavior, block: "start" });
 
@@ -625,7 +628,7 @@ function Main() {
 
   return (
     <>
-      <Header />
+      <Header activeSectionIndex={activeSectionIndex} />
       <main className="page-shell main-page-shell">
         <div
           ref={contentRef}
@@ -649,6 +652,12 @@ function Main() {
                     src={titleImageSrc(1)}
                     alt=""
                   />
+                  <div className="main-section__about-bg-wrap">
+                    <img
+                      className="main-section__about-bg"
+                      src={ABOUT_BG_SRC}
+                      alt=""
+                    />
                   <div
                     className="main-section__about-grid-box"
                     aria-label="About me gallery"
@@ -699,6 +708,7 @@ function Main() {
                         </div>
                       ))}
                     </div>
+                  </div>
                   </div>
                 </div>
               ) : index === 1 ? (
