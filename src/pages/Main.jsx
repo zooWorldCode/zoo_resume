@@ -99,7 +99,7 @@ const PROJECT_PAGES = [
     title: "한자하루",
     meta: {
       role: "기획 · 디자인 · 개발",
-      period: "3주",
+      period: "4주",
       type: "개인 프로젝트",
       duty: "모든 것",
     },
@@ -114,7 +114,7 @@ const PROJECT_PAGES = [
     title: "뮤트 (Mute)",
     meta: {
       role: "디자인",
-      period: "3주",
+      period: "6주",
       type: "팀 프로젝트 (3명)",
       duty: (<>
         디자인 90%
@@ -182,7 +182,7 @@ const PROJECT_PAGES = [
     title: "물결",
     meta: {
       role: "기획 · 디자인 · 개발",
-      period: "3주",
+      period: "4주",
       type: "개인 프로젝트",
       duty: "모든 것",
     },

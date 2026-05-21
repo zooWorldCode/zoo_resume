@@ -550,6 +550,7 @@ html:has(.splash-page) body {
   pointer-events: none;
   user-select: none;
   z-index: 0;
+
 }
 
 .main-section__about-grid-box {
@@ -558,6 +559,7 @@ html:has(.splash-page) body {
   box-sizing: border-box;
   overflow: visible;
   z-index: 1;
+  padding: 0 20px;
 }
 
 .main-section__about-grid {
@@ -1288,7 +1290,7 @@ html:has(.splash-page) body {
 .main-section__profile-flip-btn {
   position: absolute;
   right: 30px;
-  bottom: 30px;
+  bottom: 60px;
   z-index: 3;
   display: inline-flex;
   align-items: center;
